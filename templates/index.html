@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adhésion | ARÉOPAGE CLUB</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="page">
+    <header class="brand">
+      <img class="club-logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo ARÉOPAGE CLUB">
+      <p class="eyebrow">FORMULAIRE OFFICIEL</p>
+      <h1>ARÉOPAGE <span>CLUB</span></h1>
+      <p class="intro">Rejoignez notre communauté. Remplissez soigneusement le formulaire ci-dessous.</p>
+    </header>
+
+    <section class="panel">
+      <h2>Demande d'adhésion</h2>
+      <p class="required-note">Les champs marqués d'un astérisque (*) sont obligatoires.</p>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="post">
+        <div class="trap" aria-hidden="true">
+          <label>Ne pas remplir <input name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <h3>1. Informations personnelles</h3>
+        <label>Nom et prénom(s) *<input name="full_name" required maxlength="120" placeholder="Votre nom complet"></label>
+        <div class="two">
+          <label>Date de naissance *<input type="date" name="birth_date" required></label>
+          <label>Sexe *
+            <select name="gender" required>
+              <option value="">Sélectionner</option>
+              <option>Masculin</option>
+              <option>Féminin</option>
+              <option>Préfère ne pas préciser</option>
+            </select>
+          </label>
+        </div>
+
+        <h3>2. Coordonnées</h3>
+        <div class="two">
+          <label>Téléphone / WhatsApp *<input name="phone" required maxlength="35" placeholder="+..."></label>
+          <label>Adresse e-mail *<input type="email" name="email" required maxlength="150" placeholder="vous@exemple.com"></label>
+        </div>
+        <label>Profession / occupation<input name="occupation" maxlength="120" placeholder="Facultatif"></label>
+
+        <h3>3. Motivation</h3>
+        <label>Pourquoi souhaitez-vous adhérer à ARÉOPAGE CLUB ? *
+          <textarea name="motivation" rows="5" required maxlength="3000" placeholder="Présentez brièvement vos motivations..."></textarea>
+        </label>
+
+        <label class="consent"><input type="checkbox" name="consent" value="yes" required>
+          Je confirme l'exactitude des informations fournies et j'accepte qu'elles soient transmises à l'administration d'ARÉOPAGE CLUB pour traiter ma demande d'adhésion.
+        </label>
+
+        <button type="submit">Envoyer ma demande</button>
+        <p class="privacy">Vos informations sont envoyées à l'adresse officielle du club pour le traitement de votre demande.</p>
+      </form>
+    </section>
+    <footer>© ARÉOPAGE CLUB — Tous droits réservés</footer>
+  </main>
+</body>
+</html>
